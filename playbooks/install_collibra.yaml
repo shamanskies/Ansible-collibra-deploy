@@ -1,0 +1,14 @@
+      # playbooks/install_collibra.yml
+
+- name: Install Collibra Services
+  hosts: collibra_servers
+  tasks:
+    - name: Copy installation script to /tmp
+      copy:
+        src: "files/dgc-linux-{{ dgc_version }}.sh"
+        dest: "/tmp/dgc-linux-{{ dgc_version }}.sh"
+        mode: '0755'
+
+    - name: Run Collibra installation
+      command: "/tmp/dgc-linux-{{ dgc_version }}.sh -- --config /tmp/silentInstall.json"
+

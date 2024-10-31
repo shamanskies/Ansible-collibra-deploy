@@ -1,0 +1,6 @@
+# inventory/host_vars/node1.yml
+component_set:
+  - "CONSOLE"
+repository_memory: 2048
+dgc_min_memory: 2048
+dgc_max_memory: 4096

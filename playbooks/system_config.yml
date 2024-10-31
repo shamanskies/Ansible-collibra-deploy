@@ -1,0 +1,89 @@
+---
+- name: Ensure system parameters and ulimits are properly set
+  hosts: collibra_servers
+  become: yes
+  tasks:
+
+    # ===========================
+    # Check and Set vm.max_map_count
+    # ===========================
+    - name: Check current value of vm.max_map_count
+      command: sysctl vm.max_map_count
+      register: vm_max_map_count
+
+    - name: Set vm.max_map_count if it is less than 262144
+      command: sysctl -w vm.max_map_count=262144
+      when: vm_max_map_count.stdout | regex_search('([0-9]+)') | int < 262144
+
+    - name: Persist vm.max_map_count in sysctl.conf
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: '^vm.max_map_count'
+        line: 'vm.max_map_count=262144'
+        state: present
+
+    # ===========================
+    # Check and Set ulimit -n (max open files)
+    # ===========================
+    - name: Check current ulimit -n
+      shell: ulimit -n
+      register: ulimit_n
+
+    - name: Set ulimit -n to 65536 if it is less than 65536
+      shell: ulimit -n 65536
+      when: ulimit_n.stdout | int < 65536
+
+    # ===========================
+    # Check and Set ulimit -u (max user processes)
+    # ===========================
+    - name: Check current ulimit -u
+      shell: ulimit -u
+      register: ulimit_u
+
+    - name: Set ulimit -u to 4096 if it is less than 4096
+      shell: ulimit -u 4096
+      when: ulimit_u.stdout | int < 4096
+
+    # ===========================
+    # Check and Set ulimit -f (max file size)
+    # ===========================
+    - name: Check current ulimit -f
+      shell: ulimit -f
+      register: ulimit_f
+
+    - name: Set ulimit -f to unlimited if it is not already
+      shell: ulimit -f unlimited
+      when: ulimit_f.stdout != "unlimited"
+
+    # ===========================
+    # Persist ulimit settings in /etc/security/limits.conf
+    # ===========================
+    - name: Ensure open files limit (ulimit -n) is persisted
+      lineinfile:
+        path: /etc/security/limits.conf
+        line: "* soft nofile 65536"
+        state: present
+
+    - name: Ensure hard open files limit (ulimit -n) is persisted
+      lineinfile:
+        path: /etc/security/limits.conf
+        line: "* hard nofile 65536"
+        state: present
+
+    - name: Ensure max user processes (ulimit -u) is persisted
+      lineinfile:
+        path: /etc/security/limits.conf
+        line: "* soft nproc 4096"
+        state: present
+
+    - name: Ensure hard max user processes (ulimit -u) is persisted
+      lineinfile:
+        path: /etc/security/limits.conf
+        line: "* hard nproc 4096"
+        state: present
+
+    - name: Ensure unlimited file size (ulimit -f) is persisted
+      lineinfile:
+        path: /etc/security/limits.conf
+        line: "* soft fsize unlimited"
+        state: present

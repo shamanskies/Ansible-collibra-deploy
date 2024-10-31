@@ -1,0 +1,47 @@
+---
+- name: Install and configure PostgreSQL
+  hosts: postgres_servers
+  become: yes
+  tasks:
+
+    # Ensure system packages are updated
+    - name: Update all packages to the latest version
+      dnf:
+        name: '*'
+        state: latest
+      when: ansible_os_family == "RedHat"
+
+    # Add the PostgreSQL repository
+    - name: Install PostgreSQL repository
+      yum:
+        name: https://download.postgresql.org/pub/repos/yum/14/redhat/rhel-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+        state: present
+
+    # Disable built-in PostgreSQL module to avoid conflicts
+    - name: Disable built-in PostgreSQL module
+      dnf:
+        name: postgresql
+        state: absent
+        module: yes
+
+    # Install PostgreSQL 14
+    - name: Install PostgreSQL server and client
+      yum:
+        name:
+          - postgresql14
+          - postgresql14-server
+        state: present
+
+    # Update the /usr/lib/tmpfiles.d/postgresql-14.conf file
+    - name: Update PostgreSQL tmpfiles configuration
+      lineinfile:
+        path: /usr/lib/tmpfiles.d/postgresql-14.conf
+        regexp: '^d /run/postgresql'
+        line: 'd /run/postgresql 2777 postgres postgres - -'
+        state: present
+
+    # Reboot the node
+    - name: Reboot the node
+      reboot:
+        reboot_timeout: 600  # Adjust as necessary
+        test_command: whoami  # This will check if the node is back up

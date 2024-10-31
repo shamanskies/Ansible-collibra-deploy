@@ -1,0 +1,14 @@
+all:
+  children:
+    collibra_servers:
+      hosts:
+        node1.example.com:
+        node2.example.com:
+        node3.example.com:
+        node4.example.com:
+    postgres_servers:
+      hosts:
+        node1.example.com:
+        node2.example.com:
+        node3.example.com:
+
