@@ -1,6 +1,6 @@
 # inventory/host_vars/node1.yml
 component_set:
-  - "REPO"
+  - "REPOSITORY"
   - "AGENT"
 repository_memory: 2048
 dgc_min_memory: 2048
