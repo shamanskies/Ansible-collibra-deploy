@@ -1,0 +1,16 @@
+# roles/collibra/tasks/selinux-chk.yml
+- name: Check SELinux status
+  command: getenforce
+  register: selinux_status
+
+- name: Set SELinux to permissive if it is enforcing
+  command: setenforce 0
+  when: selinux_status.stdout == "Enforcing"
+
+- name: Update SELinux config file to permissive
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=permissive'
+    backup: yes
+  when: selinux_status.stdout == "Enforcing"
