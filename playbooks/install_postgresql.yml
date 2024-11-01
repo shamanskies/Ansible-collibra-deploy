@@ -30,6 +30,7 @@
         name:
           - postgresql14
           - postgresql14-server
+          - postgresql14-contrib
         state: present
 
     # Update the /usr/lib/tmpfiles.d/postgresql-14.conf file
