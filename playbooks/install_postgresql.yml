@@ -1,8 +1,25 @@
 ---
-- name: Install and configure PostgreSQL
+- name: Clean up and install PostgreSQL
   hosts: postgres_servers
   become: yes
   tasks:
+
+    # Cleanup: Remove any old PostgreSQL repository files
+    - name: Remove old PostgreSQL repository files
+      file:
+        path: "/etc/yum.repos.d/{{ item }}"
+        state: absent
+      loop:
+        - pgdg-redhat.repo
+        - pgdg-redhat-all.repo
+        - pgdg.repo
+
+    # Clear DNF cache
+    - name: Clear DNF cache after removing old repos
+      dnf:
+        name: '*'
+        state: latest
+        update_cache: true
 
     # Ensure system packages are updated
     - name: Update all packages to the latest version
@@ -11,27 +28,67 @@
         state: latest
       when: ansible_os_family == "RedHat"
 
-    # Add the PostgreSQL repository
+    # Install required packages
+    - name: Install required packages
+      dnf:
+        name:
+         - wget
+         - python3
+        state: latest
+
+    # Construct the URL dynamically and download the repository RPM
+    - name: Construct URL and download PostgreSQL repository RPM
+      shell: |
+        url="https://download.postgresql.org/pub/repos/yum/reporpms/EL-$(rpm -E %{rhel})-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+        wget -O /tmp/pgdg-redhat-repo-latest.noarch.rpm $url
+      args:
+       creates: /tmp/pgdg-redhat-repo-latest.noarch.rpm
+
+    # Install PostgreSQL repository RPM
     - name: Install PostgreSQL repository
-      yum:
-        name: https://download.postgresql.org/pub/repos/yum/14/redhat/rhel-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+      dnf:
+        name: /tmp/pgdg-redhat-repo-latest.noarch.rpm
         state: present
+        disable_gpg_check: true
+      ignore_errors: true
+
+    # Verify repository file exists
+    - name: Verify PostgreSQL repository file
+      stat:
+        path: /etc/yum.repos.d/pgdg-redhat.repo
+      register: repo_file
+      
+    # Manually create the PostgreSQL repo file if missing
+    - name: Ensure PostgreSQL repo file exists
+      copy:
+        dest: /etc/yum.repos.d/pgdg-redhat.repo
+        content: |
+          [pgdg14]
+          name=PostgreSQL 14 for RHEL $releasever - $basearch
+          baseurl=https://download.postgresql.org/pub/repos/yum/14/redhat/rhel-$releasever-$basearch
+          enabled=1
+          gpgcheck=0
+      when: repo_file.stat.exists == False
 
     # Disable built-in PostgreSQL module to avoid conflicts
     - name: Disable built-in PostgreSQL module
       dnf:
         name: postgresql
-        state: absent
-        module: yes
+        state: disabled
+        module: true
+      when: ansible_os_family == "RedHat"
+
 
     # Install PostgreSQL 14
     - name: Install PostgreSQL server and client
-      yum:
+      dnf:
         name:
           - postgresql14
           - postgresql14-server
           - postgresql14-contrib
+          - postgresql14-libs
         state: present
+        disable_gpg_check: true
 
     # Update the /usr/lib/tmpfiles.d/postgresql-14.conf file
     - name: Update PostgreSQL tmpfiles configuration
