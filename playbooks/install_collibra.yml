@@ -22,12 +22,13 @@
     - name: Remount /tmp without noexec
       command: mount -o remount /tmp
       when: tmp_noexec_check.rc == 0  # Only remounts if noexec was removed
-      
-    - name: Copy installation script to /tmp
-      copy:
-        src: "files/dgc-linux-{{ dgc_version }}.sh"
-        dest: "/tmp/dgc-linux-{{ dgc_version }}.sh"
-        mode: '0755'
+    
+    # Copy files from your src to and installation location
+    # - name: Copy installation script to /tmp
+    #  copy:
+    #   src: "files/dgc-linux-{{ dgc_version }}.sh"
+    #   dest: "/tmp/dgc-linux-{{ dgc_version }}.sh"
+    #   mode: '0755'
 
     - name: Run Collibra installation
       command: "/tmp/dgc-linux-{{ dgc_version }}.sh -- --config /tmp/silentInstall.json"
