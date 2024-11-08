@@ -1,5 +1,7 @@
 # roles/collibra/tasks/main.yml
 
+- import_tasks: selinux-chk.yml
+
 - name: Generate silentInstall.json configuration
   template:
     src: silentInstall.json.j2
@@ -7,4 +9,4 @@
   vars:
     ansible_hostname: "{{ inventory_hostname }}"
 
-- import_tasks: selinux-chk.yml
+
