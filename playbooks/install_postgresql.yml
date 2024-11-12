@@ -19,56 +19,28 @@
          - python3
         state: latest
 
-    # Construct the URL dynamically and download the repository RPM
-    - name: Construct URL and download PostgreSQL repository RPM
-      shell: |
-        url="https://download.postgresql.org/pub/repos/yum/reporpms/EL-$(rpm -E %{rhel})-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
-        wget -O /tmp/pgdg-redhat-repo-latest.noarch.rpm $url
-      args:
-       creates: /tmp/pgdg-redhat-repo-latest.noarch.rpm
-
-   # Check if PostgreSQL RPM is installed
-   - name: Check if PostgreSQL repository RPM is installed
-     shell: rpm -q pgdg-redhat-repo
-     register: rpm_check
-     ignore_errors: true
-
-   # Notify the user if the RPM is already installed
-   - name: Notify if PostgreSQL repository RPM is already installed
-     debug:
-       msg: "PostgreSQL repository RPM is already installed."
-     when: rpm_check.rc == 0
-
-   # Install PostgreSQL repository RPM if not installed
-   - name: Install PostgreSQL repository
-     dnf:
-       name: /tmp/pgdg-redhat-repo-latest.noarch.rpm
-       state: present
-       disable_gpg_check: true
-     when: rpm_check.rc != 0
-
-   # Retrieve the GPG key for PostgreSQL
-   - name: Retrieve the GPG key for PostgreSQL
-     shell: |
-       rpm --import https://download.postgresql.org/pub/repos/yum/RPM-GPG-KEY-PGDG
-     args:
-       creates: /etc/pki/rpm-gpg/RPM-GPG-KEY-PGDG
-
-
     # Verify repository file exists
     - name: Verify PostgreSQL repository file
       stat:
         path: /etc/yum.repos.d/pgdg-redhat.repo
       register: repo_file
-      
+
+    # Manually create the PostgreSQL repo file if missing
+    - name: Ensure PostgreSQL repo file exists
+      copy:
+        dest: /etc/yum.repos.d/pgdg-redhat.repo
+        content: |
+          [pgdg14]
+          name=PostgreSQL 14 for RHEL $releasever - $basearch
+          baseurl=https://download.postgresql.org/pub/repos/yum/14/redhat/rhel-$releasever-$basearch
+          enabled=1
+          gpgcheck=0
+      when: repo_file.stat.exists == False
+
     # Disable built-in PostgreSQL module to avoid conflicts
     - name: Disable built-in PostgreSQL module
-      dnf:
-        name: postgresql
-        state: disabled
-        module: true
+      command: dnf module disable postgresql -y
       when: ansible_os_family == "RedHat"
-
 
     # Install PostgreSQL 14
     - name: Install PostgreSQL server and client
@@ -80,6 +52,7 @@
           - postgresql14-libs
         state: present
         disable_gpg_check: true
+
 
     # Update the /usr/lib/tmpfiles.d/postgresql-14.conf file
     - name: Update PostgreSQL tmpfiles configuration
