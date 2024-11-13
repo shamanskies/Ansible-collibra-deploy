@@ -1,4 +1,4 @@
-# Ansible Role: Colllibra Platform Self-Hosted
+# Ansible Role: Collibra Platform Self-Hosted
 
 Installs and configures CPSH on RHEL servers.
 
