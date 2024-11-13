@@ -2,13 +2,35 @@
 - name: Install Collibra Services
   hosts: collibra_servers
   become: yes
+  roles:
+    - collibra
   tasks:
+
+    # Gather mount facts
+    - name: Gather mount facts
+      setup:
+        filter: ansible_mounts
 
     # Check if /tmp is mounted with noexec
     - name: Check if /tmp is mounted with noexec
-      shell: mount | grep -w '/tmp' | grep -w 'noexec'
-      register: tmp_noexec_check
-      ignore_errors: true
+      debug:
+        msg: "/tmp is mounted with noexec"
+      when:
+        - "'noexec' in item.options"
+        - item.mount == '/tmp'
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
+
+    - name: Check if /tmp is not mounted with noexec
+      debug:
+        msg: "/tmp is not mounted with noexec"
+      when:
+        - "'noexec' not in item.options"
+        - item.mount == '/tmp'
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
 
     # Remove the noexec option if it is set
     - name: Remove noexec option from /etc/fstab for /tmp
@@ -16,19 +38,29 @@
         path: /etc/fstab
         regexp: '(\s)/tmp(\s+)(\S+)(.*)noexec(.*)'
         line: '\1/tmp\2\3\4\5'  # Removes 'noexec' from the matched line
-      when: tmp_noexec_check.rc == 0  # Only runs if noexec is set
+      when:
+        - "'noexec' in item.options"
+        - item.mount == '/tmp'
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
 
     # Remount /tmp to apply changes
     - name: Remount /tmp without noexec
       command: mount -o remount /tmp
-      when: tmp_noexec_check.rc == 0  # Only remounts if noexec was removed
-    
+      when:
+        - "'noexec' in item.options"
+        - item.mount == '/tmp'
+      loop: "{{ ansible_mounts }}"
+      loop_control:
+        label: "{{ item.mount }}"
+
     # Copy files from your src to and installation location
     # - name: Copy installation script to /tmp
-    #  copy:
-    #   src: "files/dgc-linux-{{ dgc_version }}.sh"
-    #   dest: "/tmp/dgc-linux-{{ dgc_version }}.sh"
-    #   mode: '0755'
+    #   copy:
+    #     src: "files/dgc-linux-{{ dgc_version }}.sh"
+    #     dest: "/tmp/dgc-linux-{{ dgc_version }}.sh"
+    #     mode: '0755'
 
     - name: Run Collibra installation
       command: "/tmp/dgc-linux-{{ dgc_version }}.sh -- --config /tmp/silentInstall.json"
@@ -46,7 +78,7 @@
       command: restorecon -v /opt/collibra/agent/bin/agent
       when: "'AGENT' in component_set"
 
-      # Only run the SELinux tasks if component_set is CONSOLE
+    # Only run the SELinux tasks if component_set is CONSOLE
     - name: Change SELinux context for Collibra agent binary
       command: chcon -t bin_t /opt/collibra/agent/bin/agent
       when: "'CONSOLE' in component_set"
