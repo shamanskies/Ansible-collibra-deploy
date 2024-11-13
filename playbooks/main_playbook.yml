@@ -1,0 +1,14 @@
+# main_playbook.yml
+- name: Main playbook
+  hosts: all
+  tasks:
+    - name: Include System Config playbook
+      include_tasks: system_config.yml
+
+    - name: Include PostgreSQL Installation playbook
+      include_tasks: install_postgresql.yml
+
+    - name: Include Collibra Installation playbook
+      include_tasks: install_collibra.yml
+    
+
