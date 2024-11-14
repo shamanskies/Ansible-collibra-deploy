@@ -1,0 +1,800 @@
+{
+  "general" : {
+    "helpMenu" : {
+      "menuItems" : [ {
+        "name" : "Product Documentation",
+        "index" : 1,
+        "url" : "https://www.collibra.com/documentation",
+        "showAdminOnly" : false
+      }, {
+        "name" : "Product Resources Center",
+        "index" : 2,
+        "url" : "https://productresources.collibra.com",
+        "showAdminOnly" : false
+      }, {
+        "name" : "Collibra University",
+        "index" : 3,
+        "url" : "https://university.collibra.com",
+        "showAdminOnly" : false
+      }, {
+        "name" : "Collibra Marketplace",
+        "index" : 4,
+        "url" : "https://marketplace.collibra.com",
+        "showAdminOnly" : false
+      }, {
+        "name" : "API Documentation",
+        "index" : 5,
+        "url" : "/docs/index.html",
+        "showAdminOnly" : true
+      }, {
+        "name" : "Log a Support Ticket",
+        "index" : 6,
+        "url" : "https://support.collibra.com",
+        "showAdminOnly" : false
+      } ]
+    },
+    "baseUrl" : "http://localhost:4400/",
+    "defaultLocale" : "en",
+    "viewRightsEnabled" : true,
+    "useHttpCache" : false,
+    "jobsBulkOperationMaxWaitTime" : 5000,
+    "auditingEnabled" : true,
+    "showTargetAssetTypeAboveRelationTable" : true,
+    "analyticsEnabled" : false,
+    "pendoTrackingId" : "",
+    "topNavigation" : false,
+    "httpAsyncTimeout" : 600,
+    "homepageEnabled" : false,
+    "homepageTilesEnabled" : false
+  },
+  "security" : {
+    "signinAutoComplete" : true,
+    "xFrameOptions" : "SAMEORIGIN",
+    "limitUserSessions" : false,
+    "guestAccess" : false,
+    "officeResearchGuestAccess" : false,
+    "xssDashboardPrevention" : false,
+    "publicRegistration" : false,
+    "ssl" : {
+      "keyStore" : "",
+      "keyStorePassword" : "",
+      "keyStoreType" : "JKS",
+      "trustStore" : "",
+      "trustStorePassword" : "",
+      "trustStoreType" : "JKS"
+    },
+    "ldap" : {
+      "enabled" : false,
+      "syncOnBootstrap" : true,
+      "userPageSize" : 500,
+      "groupPageSize" : 0,
+      "timeLimit" : 120000,
+      "synchronizationEnabled" : true,
+      "synchronizationCron" : "0 0 * * *",
+      "userFields" : {
+        "userName" : "uid",
+        "email" : "mail",
+        "firstName" : "cn",
+        "lastName" : "sn",
+        "additionalEmailList" : [ ],
+        "instantMessagingFields" : { },
+        "websiteMap" : { },
+        "phone" : { },
+        "homeAddress" : { },
+        "workAddress" : { },
+        "gender" : { }
+      },
+      "group" : { },
+      "servers" : [ ],
+      "dgcManagedGroups" : false,
+      "batch" : {
+        "size" : 500
+      }
+    },
+    "passwordConfiguration" : {
+      "minimumLength" : 12,
+      "maximumLength" : 1024,
+      "digitRequired" : true,
+      "nonAlphanumericRequired" : true,
+      "uppercaseRequired" : true,
+      "lowercaseRequired" : true,
+      "usernameDisallowed" : true,
+      "expirationMonthsInterval" : 3,
+      "allowedLoginFailures" : 10,
+      "lockoutMinutes" : 5,
+      "noReuseCount" : 24,
+      "resetLinkValidityMinutes" : 60
+    },
+    "rest" : {
+      "referrerCheckingEnabled" : false,
+      "referrerCheckingAllowEmpty" : true,
+      "tokenCheckingEnabled" : false,
+      "enhancedCSRFEnabled" : true
+    },
+    "sso" : {
+      "mode" : "DISABLED",
+      "header" : "",
+      "ldapDn" : false,
+      "ldapAttribute" : "",
+      "disableUserAutoCreation" : false,
+      "samlConfiguration" : {
+        "groupsDgcManaged" : false,
+        "forceAuthn" : true,
+        "forcePassive" : false,
+        "forceNameIdAllowCreate" : true,
+        "disableRelayState" : false,
+        "disableClientAddress" : false,
+        "requestSigned" : false,
+        "samlRequestedAuthnContextConfiguration" : {
+          "disable" : false,
+          "classRefList" : [ "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordPro
+tectedTransport" ],
+          "classDeclList" : [ ],
+          "comparison" : "minimum"
+        },
+        "attributeFields" : {
+          "firstName" : "firstName",
+          "lastName" : "lastName",
+          "email" : "email",
+          "phone" : { },
+          "homeAddress" : { },
+          "workAddress" : { },
+          "instantMessagingFields" : { },
+          "genderFields" : { }
+        },
+        "samlResponseDecryptionMode" : "DISABLED",
+        "samlCertificateValidityPeriod" : 20,
+        "samlSupportX509CertificateChain" : true,
+        "samlValidateX509ValidityPeriod" : true
+      },
+      "disableSignInPage" : false
+    },
+    "signout" : {
+      "overrideRedirect" : false,
+      "redirectUrl" : "/"
+    },
+    "sessionConfiguration" : {
+      "sessionIdleTimeout" : 1800,
+      "sessionCookieName" : "JSESSIONID",
+      "sessionCookieSameSiteValue" : "OMITTED"
+    },
+    "importExportConfiguration" : {
+      "escapeFormula" : true,
+      "escapeFormulaChar" : "'"
+    },
+    "schemaEnableIntrospection" : false,
+    "publicSchemaEnableIntrospection" : true,
+    "jwt" : {
+      "jwksUrl" : "",
+      "jwtTypes" : "at+jwt,jwt",
+      "jwtAlgorithms" : "",
+      "jwtIssuer" : "",
+      "jwtAudience" : "",
+      "jwtPrincipalIdClaimName" : "sub",
+      "jwtMaxClockSkew" : ""
+    },
+    "headers" : {
+      "forceDefaultHeaders" : [ "Content-Security-Policy", "Content-Security-Pol
+icy-Report-Only" ],
+      "scopes" : [ ]
+    },
+    "whitelistConfiguration" : {
+      "connectSrcWl" : [ ],
+      "fontSrcWl" : [ ],
+      "frameSrcWl" : [ ],
+      "imgSrcWl" : [ ],
+      "scriptSrcWl" : [ ],
+      "styleSrcWl" : [ ],
+      "frameAncestorsWl" : [ ],
+      "tableauFrameAncestorsWl" : [ ]
+    },
+    "enableCustomValidationFunctions" : true,
+    "disclaimer" : {
+      "disclaimerEnabled" : false
+    }
+  },
+  "email" : {
+    "password" : "",
+    "fromAddress" : "no-reply@collibra.com",
+    "port" : 25,
+    "host" : "localhost",
+    "starttls" : false,
+    "userName" : "",
+    "sendingThreads" : 3,
+    "maximumRetries" : 5,
+    "templateMap" : { },
+    "groupingDefaultSchedule" : "0 * * * *",
+    "handlers" : {
+      "handlerList" : [ {
+        "password" : "",
+        "name" : "workflow-action",
+        "enabled" : false,
+        "username" : "",
+        "emailAddress" : "reply@mycompany.com",
+        "pollingInterval" : "60000",
+        "delete" : false,
+        "aliasFilter" : true
+      } ],
+      "port" : 143,
+      "protocol" : "IMAP",
+      "host" : "localhost",
+      "forceDomain" : false
+    },
+    "notifications" : {
+      "notificationDays" : [ ],
+      "dailyRoles" : [ "00000000-0000-0000-0000-000000005016" ],
+      "monthlyEnabled" : false,
+      "monthlyRoles" : [ "00000000-0000-0000-0000-000000005016", "00000000-0000-
+0000-0000-000000005018" ]
+    },
+    "emailAddressChangeNotificationEnabled" : true
+  },
+  "hyperlinking" : {
+    "enabled" : false,
+    "caseSensitive" : false,
+    "batchSize" : 50000,
+    "excludedAssetTypes" : [ ],
+    "readerFrequency" : 5000,
+    "readerBatchSize" : 5000
+  },
+  "recommender" : {
+    "recommenderEnabled" : true,
+    "dataSetRecommenderCron" : "0 22 * * *",
+    "assetRecommenderCron" : "0 0 * * *",
+    "dataSetMatcherCron" : "0 2 * * *",
+    "dataSetSimilarityThreshold" : 0.3,
+    "duplicateSchemaThreshold" : 0.9,
+    "fuzzyDistanceWeight" : 0.25,
+    "coldStartRecommendationOrderDatasets" : "CERTIFIED, POPULARITY",
+    "activeRecommendationAlgorithms" : "BASELINE, USER_MEAN, IICF, SLOPE_ONE, WE
+IGHTED_SLOPE_ONE",
+    "dataSetRecommenderLimit" : 7000
+  },
+  "indexConfiguration" : {
+    "stopWordSet" : [ ],
+    "searchAppendsWildcard" : true,
+    "batchingMaxSize" : 5000,
+    "relationsBatchingMaxSize" : 500,
+    "relationsPreviewBatchingMaxSize" : 500,
+    "searchDigContextSearching" : true,
+    "multiThreadResourcesIndexingEnabled" : true,
+    "multiThreadResourcesIndexingNumThreads" : 0,
+    "searchZeroDowntimeReindexEnabled" : true,
+    "multiThreadRelationsIndexingEnabled" : true,
+    "multiThreadRelationsIndexingNumThreads" : 0,
+    "enhancedFieldAnalyzer" : true,
+    "enhancedFieldAnalyzerMatchAnd" : true,
+    "tokenizer" : {
+      "type" : "Standard",
+      "parameterMap" : { }
+    },
+    "boosting" : {
+      "asset" : 1.0,
+      "classificationMatch" : 1.0,
+      "community" : 1.0,
+      "domain" : 1.0,
+      "user" : 1.0,
+      "userGroup" : 1.0,
+      "name" : 3.0,
+      "comment" : 1.0,
+      "attributeBoostMap" : {
+        "00000000-0000-0000-0000-000000003114" : 1.0
+      },
+      "tag" : 1.0,
+      "exactMatchAlwaysFirst" : true,
+      "assetBoostMap" : { },
+      "partialExactMatchEnabled" : true
+    },
+    "slowLog" : {
+      "fetchThreshold" : 1000,
+      "indexThreshold" : 2000
+    },
+    "searchEventLog" : {
+      "enabled" : true,
+      "resultMapSchedulerEnabled" : true,
+      "readerFrequency" : 5000,
+      "readerBatchSize" : 5000,
+      "eventsThresholdTimeoutInMinutes" : 30,
+      "cdcRelationsTriggerFrequency" : 300000,
+      "retryLimit" : 10
+    },
+    "managedElastic" : false,
+    "searchTileViewEnabled" : false,
+    "semanticSearchEnabled" : false
+  },
+  "upload" : {
+    "acceptedContentTypes" : [ "*" ],
+    "restrictedContentTypes" : [ "application/vnd.ms-excel.addin.macroenabled.12
+", "application/vnd.ms-excel.sheet.binary.macroenabled.12", "application/vnd.ms-
+excel.sheet.macroenabled.12", "application/vnd.ms-excel.template.macroenabled.12
+", "application/vnd.ms-powerpoint.addin.macroenabled.12", "application/vnd.ms-po
+werpoint.presentation.macroenabled.12", "application/vnd.ms-powerpoint.slide.mac
+roenabled.12", "application/vnd.ms-powerpoint.slideshow.macroenabled.12", "appli
+cation/vnd.ms-powerpoint.template.macroenabled.12", "application/vnd.ms-word.doc
+ument.macroenabled.12", "application/vnd.ms-word.template.macroenabled.12" ],
+    "maxFileSize" : 10485760,
+    "maxPerDay" : 150,
+    "attachmentDownloadEnabled" : true
+  },
+  "statistics" : {
+    "bufferSize" : 10,
+    "bufferFlushTime" : 10000,
+    "statisticCronMap" : {
+      "workflow-task" : "59 23 * * *",
+      "active-users" : "0/15 * * * *",
+      "term-count" : "59 23 * * *",
+      "vocabulary-count" : "59 23 * * *",
+      "page-hit" : "0 * * * *",
+      "task-count" : "0 * * * *"
+    }
+  },
+  "importConfiguration" : {
+    "excelImportConfiguration" : {
+      "defaultCSVSeparator" : ",",
+      "defaultCSVQuote" : "\"",
+      "rowsInChunk" : 5000
+    },
+    "enableImportAssetResponsibilities" : false,
+    "newUIEnabled" : true,
+    "autoMapApiEnabled" : true,
+    "tempStorage" : "FILE",
+    "enableWorkflows" : false,
+    "maxErrors" : 100
+  },
+  "exportConfiguration" : {
+    "newExportFormat" : true,
+    "knowledgeGraphTimeout" : 10
+  },
+  "excelExportConfiguration" : {
+    "defaultCSVSeparator" : ",",
+    "defaultCSVQuote" : "\"",
+    "rowsInChunk" : 5000
+  },
+  "csvExportConfiguration" : {
+    "alwaysUseQuotes" : false,
+    "rowsInChunk" : 5000
+  },
+  "cloud" : {
+    "collibrianEnabled" : true,
+    "logsEnabled" : false
+  },
+  "ui" : {
+    "optimizeCss" : true,
+    "optimizeJavascript" : true,
+    "concatenateJavascript" : true,
+    "moduleJsonOverrides" : { },
+    "modulePropertiesOverrides" : { },
+    "pageDefinitionOverrides" : { },
+    "velocityCache" : true,
+    "gcfSuppress" : false,
+    "traceGraphQL" : false
+  },
+  "workflowEngine" : {
+    "defaultEscalationActive" : true,
+    "defaultEscalationTimeduration" : "B1M",
+    "defaultTaskNotification" : true,
+    "jobExecutorActivate" : true,
+    "workflowStartParticipatePermissionsEnabled" : true,
+    "historyLevel" : "INSTANCE",
+    "lockWritesInJob" : true
+  },
+  "groovyScriptSecurityConfiguration" : {
+    "customImportsAllowList" : [ ],
+    "blockGuardrailsValidations" : false
+  },
+  "collibraConnect" : { },
+  "componentCallLogging" : {
+    "enabled" : false,
+    "patternDurationConfigList" : [ {
+      "pattern" : "onApplicationEvent",
+      "minDuration" : 1500
+    }, {
+      "pattern" : "find.*",
+      "minDuration" : 1500
+    }, {
+      "pattern" : "get.*",
+      "minDuration" : 1500
+    }, {
+      "pattern" : "has.*",
+      "minDuration" : 1500
+    }, {
+      "pattern" : "exists.*",
+      "minDuration" : 1500
+    }, {
+      "pattern" : "is.*",
+      "minDuration" : 1500
+    } ],
+    "maxEntries" : 1000000,
+    "callAuditingEnabled" : false,
+    "hibernateLoggingEnabled" : false,
+    "defaultMinDuration" : 1500
+  },
+  "metric" : {
+    "enabled" : true,
+    "jvmMetricsEnabled" : true,
+    "advancedMetricsEnabled" : false,
+    "datadogConfiguration" : {
+      "enabled" : false,
+      "hostName" : "localhost"
+    },
+    "minimalMonitoringEnabled" : false
+  },
+  "dataProfiling" : {
+    "samplesSize" : 100,
+    "maximumValueLength" : 1000,
+    "defaultDatePattern" : "MM/dd/yyyy",
+    "defaultTimePattern" : "HH:mm:ss",
+    "defaultDateTimePattern" : "MM/dd/yyyy HH:mm:ss",
+    "defaultMissingValuesDefinition" : "\"\", \"null\", \"n/a\", \"na\", \"nan\"
+, \"?\"",
+    "dataTypeDetectionThreshold" : 0.8,
+    "calculateDataSimilarity" : false,
+    "dataSimilarityThreshold" : 0.5,
+    "anonymizeData" : false,
+    "enableDatabaseProfiling" : false,
+    "parallelDatabaseProfiling" : 1,
+    "eventsConsumerWorkersCount" : 1,
+    "eventsConsumerBatchSize" : 1000,
+    "edgeJobDuration" : 20160,
+    "edgeConcurrentJobs" : 4,
+    "anonymizeAllColumns" : false
+  },
+  "lineageOnEdgeConfiguration" : {
+    "biSynchronizationOnEdgeEnabled" : false,
+    "databaseLineageEnabled" : false,
+    "sharedStorageSynchronizationOnEdgeEnabled" : false
+  },
+  "betaFeatures" : {
+    "maxConcurrentImportJobs" : 4,
+    "searchOrderingByAttributesEnabled" : false,
+    "searchWorkflowEventsInInputViewJobRunnerEnabled" : false,
+    "workflowNewViewEnabled" : true,
+    "workflowSecurityEnabled" : true,
+    "workflowDesignerAccessEnabled" : false,
+    "settingsLandingEnabled" : true,
+    "customizationsApiEnabled" : false,
+    "antivirusEnabled" : false,
+    "unifiedClassificationEnabled" : true,
+    "unifiedClassificationMigrationEnabled" : false,
+    "guidedStewardshipModelEditorEnabled" : false,
+    "collectionsEnabled" : false,
+    "protectSystemAssignmentLinesEnabled" : false,
+    "slackIntegrationEnabled" : false,
+    "samplingOptimizationEnabled" : false,
+    "generateDescriptionsCollibraAI" : false,
+    "workflowScriptsNoLibs" : false,
+    "collibraDetectEnabled" : false,
+    "filterDomainTypesRelatedToLicenseEnabled" : true,
+    "sharingViewsEnabled" : false,
+    "orderingDashboardsEnabled" : false,
+    "newDiagramUIEnabled" : false,
+    "newNavigationMenuEnabled" : false,
+    "globalCreateQueriesEnabled" : true
+  },
+  "frontendFeatures" : {
+    "frontendEnabled" : true,
+    "evolutionEnabled" : false,
+    "dateFormat" : "LOCALE",
+    "allowLocaleOverride" : true,
+    "historyStartDateEnabled" : false
+  },
+  "externalLinkNotice" : {
+    "enabled" : false,
+    "dontAskAgainEnabled" : false
+  },
+  "clientTelemetryConfiguration" : {
+    "logsEnabled" : false,
+    "metricsEnabled" : false,
+    "tracesEnabled" : false,
+    "endpoint" : "",
+    "verbosity" : "NONE"
+  },
+  "arborFeatures" : {
+    "arborAssessmentsEnabled" : false,
+    "arborAssetEnabled" : false,
+    "arborAssetLayoutEnabled" : false,
+    "arborAssettypeEnabled" : false,
+    "arborCatalogEnabled" : false,
+    "arborCommunityEnabled" : false,
+    "arborDashboardEnabled" : false,
+    "arborDataDictionaryEnabled" : false,
+    "arborDataHelpdeskEnabled" : false,
+    "arborDataMarketplaceEnabled" : false,
+    "arborDomainEnabled" : false,
+    "arborEdgeEnabled" : false,
+    "arborGlobalViewEnabled" : false,
+    "arborGlossaryEnabled" : false,
+    "arborGroupEnabled" : false,
+    "arborHomepageEnabled" : false,
+    "arborPolicyManagerEnabled" : false,
+    "arborPrivacyEnabled" : false,
+    "arborProfileEnabled" : false,
+    "arborProtectEnabled" : false,
+    "arborReferenceDataEnabled" : false,
+    "arborSearchEnabled" : false,
+    "arborSettingsEnabled" : true,
+    "arborSigninEnabled" : false,
+    "arborStewardshipEnabled" : false,
+    "arborTasksEnabled" : false,
+    "arborUsageAnalyticsEnabled" : false,
+    "arborUserCustomizationEnabled" : false,
+    "arborWorkflowDefinitionEnabled" : false
+  },
+  "catalogExperience" : {
+    "newExperienceEnabled" : true,
+    "titlebarTheme" : "LIGHT"
+  },
+  "dataNotebookConfiguration" : {
+    "dataNotebookEnabled" : true
+  },
+  "ingestion" : {
+    "tableTypesToSkip" : "INDEX, SEQUENCE",
+    "restrictedAwsRegions" : [ ],
+    "awsApiCallRate" : 3,
+    "awsBatchSize" : 0,
+    "schemaRefreshSchedule" : "0 0 23 * * ?",
+    "databaseQuality" : false,
+    "databaseRegistration" : false,
+    "serviceNowSynchronizationOnEdgeEnabled" : false,
+    "schemaListImportMaxDuration" : 240,
+    "schemaIngestionEdgeMaxDuration" : 1440,
+    "schemaIngestionImportMaxDuration" : 2880,
+    "maxOngoingEdgeJobs" : 10,
+    "submitOneSchemaIngestionPerBatch" : false,
+    "databaseRegistrationPageSize" : 1000,
+    "databaseListEdgeMaxDuration" : 5,
+    "schemaListEdgeMaxDuration" : 5,
+    "ingestionDatabaseOptimized" : true,
+    "jobserverMigrationMappingBatchSize" : 10000,
+    "dataUsageStatisticsEnabled" : false,
+    "dataUsageTimeRange" : 30,
+    "deltaFlowConfiguration" : {
+      "enabled" : false,
+      "capabilityConfiguration" : {
+        "pushCommandsBatchSize" : 100,
+        "restClientConfiguration" : {
+          "connectTimeout" : 10,
+          "readTimeout" : 60,
+          "retries" : 5,
+          "retryDuration" : 300
+        }
+      },
+      "dataPlaneConfiguration" : {
+        "processCommandsBatchSize" : 500,
+        "concurrency" : 4,
+        "retries" : 5,
+        "retryDuration" : 30000,
+        "batchTimeout" : 1000,
+        "ackTimeout" : 60000,
+        "migrationBatchSize" : 1000,
+        "outputModulePageSize" : 1000
+      },
+      "controlPlaneConfiguration" : {
+        "ackTimeout" : 60000,
+        "sessionCommitTimeout" : 3600000,
+        "globalTimeout" : 86400000,
+        "availableEdgeSlotsInterval" : 2000,
+        "sessionStatusInterval" : 2000,
+        "retryRunCapabilityInterval" : 15000,
+        "cancelEdgeJobInterval" : 2000,
+        "edgeJobOngoingInterval" : 2000,
+        "cancellingJobInterval" : 2000,
+        "maxEdgeSchedulingFailures" : 5,
+        "globalTimeoutInterval" : 300000
+      }
+    }
+  },
+  "graphQueryConfiguration" : {
+    "workMemValue" : "DISABLED",
+    "queryLimitConfiguration" : {
+      "rootNodesNumberLimitEnabled" : false,
+      "rootNodesNumberLimit" : 100000,
+      "pageNodesNumberLimit" : 1000000,
+      "defaultChunkSize" : 5000
+    },
+    "queryTimeoutConfiguration" : {
+      "defaultQueryTimeoutValueInMinutes" : 480
+    },
+    "useUnionAllHierarchyStrategyForChildren" : true,
+    "useUnionAllHierarchyStrategyForRoots" : true,
+    "useUnionAllForHasChildrenForRelations" : false,
+    "enableViewPermissionCheckInQueryEngineOnly" : true,
+    "skipComplexRelationsViewPermissions" : false,
+    "useGroupByForSortOnSingleFieldOfToManyChild" : false,
+    "optimiseLeftJoinsForFilters" : false
+  },
+  "eventSystem" : {
+    "coreConfiguration" : {
+      "topicNames" : {
+        "core" : "TOPICS.DGC.CORE",
+        "mails" : "TOPICS.DGC.MAILS",
+        "internal" : "TOPICS.DGC.INTERNAL"
+      },
+      "defaultFailoverStrategy" : "com.collibra.event.client.api.consumer.Failov
+erStrategy$Retry",
+      "defaultFailoverStrategyOverrides" : { }
+    }
+  },
+  "tableConfiguration" : {
+    "uiTableLoadingTimeout" : 60,
+    "multiSortConfiguration" : {
+      "multiSortEnabled" : false,
+      "maxNumberOfColumnsToSort" : 3
+    },
+    "inheritedResponsibilitiesConfiguration" : {
+      "inheritedResponsibilitiesEnabled" : false
+    }
+  },
+  "purgeConfiguration" : {
+    "schedule" : "0 2 * * *",
+    "timeToRun" : 7200,
+    "features" : {
+      "JOBS" : 6,
+      "WORKFLOWS" : 12,
+      "LICENSE_USAGE" : 24
+    },
+    "internalFeatures" : {
+      "GLOBAL_CREATE_RECENT_ASSET_TYPES" : 2
+    },
+    "orphanRemovalEnabled" : true,
+    "orphanRemovalSchedule" : "0 1 * * *"
+  },
+  "throttleConfigurations" : {
+    "silent" : true,
+    "restV1Configuration" : {
+      "enabled" : false,
+      "numberOfRequests" : 100,
+      "numberOfSeconds" : 1
+    },
+    "restV2Configuration" : {
+      "enabled" : false,
+      "numberOfRequests" : 100,
+      "numberOfSeconds" : 1
+    },
+    "scimConfiguration" : {
+      "enabled" : false,
+      "numberOfRequests" : 100,
+      "numberOfSeconds" : 1
+    },
+    "graphqlConfiguration" : {
+      "enabled" : false,
+      "numberOfRequests" : 100,
+      "numberOfSeconds" : 1
+    },
+    "knowledgeGraphConfiguration" : {
+      "enabled" : false,
+      "numberOfRequests" : 100,
+      "numberOfSeconds" : 1
+    }
+  },
+  "classificationConfiguration" : {
+    "acceptedTermsOfUse" : false,
+    "classificationThresholdsConfig" : {
+      "enableThresholds" : false,
+      "acceptanceThreshold" : 90,
+      "rejectionThreshold" : 10
+    }
+  },
+  "assetRecommenderConfiguration" : { },
+  "reportingConfiguration" : {
+    "cloudProvider" : "AWS",
+    "customerGuid" : "",
+    "insightsDownloadBucket" : "",
+    "amazonS3Region" : "",
+    "insightsDownloadZipLocation" : "/zip/insights_%s.zip",
+    "tableauReportUrlPattern" : "",
+    "reportsDefinitions" : [ ],
+    "reportsPreSignedUrlExpirationSeconds" : 60
+  },
+  "diagramsConfiguration" : {
+    "timeLimitBackend" : 300,
+    "sizeLimitBackend" : 10000,
+    "sizeLimitFrontend" : 2000,
+    "flowDepth" : 50,
+    "businessQualifierFilterEnabled" : false
+  },
+  "everywhereDesktopConfiguration" : {
+    "searchPlaceholder" : "Search in Collibra",
+    "enableShortcutSearch" : true,
+    "shortcutSearch" : "Control+K",
+    "enableAutoHyperlinking" : false,
+    "enableWorkflows" : false,
+    "enableRecommender" : false,
+    "enableAutoUpdate" : true,
+    "enableUserSettings" : true,
+    "enableAutoStart" : false,
+    "themeOptions" : { },
+    "enabledGlobalWorkflowIds" : [ ],
+    "enabledBusinessItemWorkflowIds" : [ ],
+    "enabledEmptySearchWorkflowIds" : [ ]
+  },
+  "everywhereExtensionConfiguration" : {
+    "whiteListedDomains" : [ ]
+  },
+  "everywhereMobileConfiguration" : {
+    "searchPlaceholder" : "Search in Collibra",
+    "themeOptions" : { },
+    "enableWorkflows" : false,
+    "enabledGlobalWorkflowIds" : [ ],
+    "enabledBusinessItemWorkflowIds" : [ ],
+    "enabledEmptySearchWorkflowIds" : [ ]
+  },
+  "jobServer" : {
+    "instances" : [ ],
+    "jobsConcurrency" : 8,
+    "jobsQueueSize" : 2147483647
+  },
+  "edgeConfiguration" : {
+    "capabilityTtlSecondsAfterSuccess" : 0,
+    "capabilityTtlSecondsAfterFailure" : 0,
+    "commandQueueSize" : 0,
+    "edgeJobStatusEnabled" : false,
+    "directQueriesEnabled" : true,
+    "features" : { },
+    "artifactoryConnectTimeoutMilliseconds" : 0,
+    "artifactoryReadTimeoutMilliseconds" : 0,
+    "artifactoryMaxRequestAttempts" : 0,
+    "artifactoryRepositoryCacheTtlSeconds" : 0,
+    "artifactoryChartCacheTtlSeconds" : 0,
+    "capabilityTtlSecondsAfterCompletion" : 0,
+    "pollingTimeoutSeconds" : 0,
+    "secretCommandsPollingTimeoutSeconds" : 0
+  },
+  "tableauMetaDataApiConfiguration" : {
+    "usageOfMetadataApiEnabled" : false,
+    "tableauOnPremiseInstances" : "",
+    "tableauOnlineUrlRegex" : "^https?:\\/\\/[a-zA-Z0-9.-]+\\.tableau\\.com\\/?$
+",
+    "tableauApiTimeoutInSeconds" : 600
+  },
+  "internalProxyConfiguration" : {
+    "proxyConfigurations" : [ ]
+  },
+  "antivirusConfiguration" : {
+    "scanFiles" : false,
+    "dummyAntivirusMaxDelayMillis" : 30000,
+    "clamAVDaemonPort" : 3310
+  },
+  "jobService" : {
+    "numberOfExecutorThreads" : 15
+  },
+  "identityConfiguration" : {
+    "limitUserInfo" : false
+  },
+  "privacyConfiguration" : {
+    "privacyLandingPageEnabled" : false
+  },
+  "protectConfiguration" : {
+    "schedulerFixedDelayDuration" : 60,
+    "maskingConflictResolution" : "MANUALLY"
+  },
+  "dataMarketplaceConfiguration" : {
+    "searchShoppingExperienceEnabled" : false
+  },
+  "apiConfiguration" : {
+    "pagingMaxLimitEnabled" : false
+  },
+  "slackIntegration" : {
+    "slackIntegrationEnabled" : false,
+    "slackIntegrationUrl" : "https://slack-integration-service.dev-aws.cp.collib
+ra-ops.com"
+  },
+  "generativeAIConfiguration" : {
+    "maxItemQuantityPerRequest" : 10,
+    "vertexParameters" : {
+      "maxOutputTokens" : 1024,
+      "maxInputTokenLength" : 500
+    },
+    "limitedParentDescriptionLength" : 100,
+    "aiModel" : "gemini-1.5-flash-001"
+  },
+  "externalLinkConfiguration" : {
+    "externalLinkPatterns" : [ ]
+  },
+  "assessmentConfiguration" : {
+    "showOotbTemplates" : true
+  },
+  "dataQualityConfiguration" : {
+    "thirdPartyEnabled" : false
+  }
+}

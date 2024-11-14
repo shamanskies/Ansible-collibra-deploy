@@ -1,6 +1,5 @@
-# main_playbook.yml
+# main.yml
 - name: Main playbook
-  hosts: all
   tasks:
     - name: Include System Config playbook
       include_tasks: system_config.yml
