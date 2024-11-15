@@ -2,8 +2,6 @@
 - name: Ensure system parameters and ulimits are properly set
   hosts: collibra_servers
   become: yes
-  become_user: root
-  
   tasks:
 
     # ===========================
