@@ -16,3 +16,10 @@ all:
        ansible_ssh_private_key_file: /root/.ssh/your.pem
        ansible_user: ec2-user
 
+    console:
+      hosts:
+        console_node:
+          ansible_host: ip-of-your-node.ec2.internal
+      vars:
+        collibra_username: "your_username"
+        collibra_password: "your_password"
