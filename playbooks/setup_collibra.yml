@@ -1,0 +1,34 @@
+---
+- name: Configure Collibra System
+  hosts: console
+  gather_facts: yes
+  tasks:
+
+    # Get environments
+    - name: Get environments
+      uri:
+        url: 'http://{{ ansible_host }}:4402/rest/environment'
+        method: GET
+        url_username: "{{ collibra_username }}"
+        url_password: "{{ collibra_password }}"
+        force_basic_auth: true
+        follow_redirects: all
+      register: environment_data
+
+    # Debug environment data - can be removed after test pass
+    - name: Debug environment data
+      debug:
+        var: environment_data
+
+    - name: Upload license file to Collibra
+      uri:
+        url: "http//{{ ansible_host }}:4402/rest/license/{{ env_id }}/licenseFile"
+        method: POST
+        headers:
+          accept: "application/json"
+          Content-Type: "multipart/form-data"
+        body_format: form-multipart
+        body:
+          form: "@/etc/ansible/Ansible-collibra-deploy/roles/collibra/files/license.lic"
+        status_code: 200
+
