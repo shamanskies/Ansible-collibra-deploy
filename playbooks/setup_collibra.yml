@@ -24,6 +24,75 @@
     - name: Set environment ID
       set_fact:
         env_id: "{{ environment_data.json[0].id }}" 
+  
+    # Delete default environment
+    - name: Delete default environment
+      uri:
+        url: "http://{{ ansible_host }}:4402/rest/environment/{{ env_id }}"
+        method: DELETE
+        url_username: "{{ collibra_username }}"
+        url_password: "{{ collibra_password }}"
+        force_basic_auth: true
+        headers:
+          Content-Type: "application/json"
+        body_format: json
+        body: |
+          {
+            "environmentId": "{{ env_id }}"
+          }
+        status_code: 204
+
+    # Create new environment
+    - name: Create new environment
+      uri:
+        url: "http://{{ ansible_host }}:4402/rest/environment"
+        method: POST
+        url_username: "{{ collibra_username }}"
+        url_password: "{{ collibra_password }}"
+        force_basic_auth: true
+        headers:
+          Content-Type: "application/json"
+        body_format: json
+        body: |
+          {
+            "name": "Production"
+          }
+        status_code: 200
+
+    # Get environments
+    - name: Get environments
+      uri:
+        url: 'http://{{ ansible_host }}:4402/rest/environment'
+        method: GET
+        url_username: "{{ collibra_username }}"
+        url_password: "{{ collibra_password }}"
+        force_basic_auth: true
+        follow_redirects: all
+      register: environment_data
+
+    # Set environment ID
+    - name: Set environment ID
+      set_fact:
+        env_id: "{{ environment_data.json[0].id }}" 
+
+  
+    # Get nodes
+    - name: Get nodes
+      tags: test
+      uri:
+        url: 'http://{{ ansible_host }}:4402/rest/node'
+        method: GET
+        url_username: "{{ collibra_username }}"
+        url_password: "{{ collibra_password }}"
+        force_basic_auth: true
+        follow_redirects: all
+      register: node_data
+
+    # Debug node data - can be removed after test pass
+    - name: Debug node data
+      tags: test
+      debug:
+        var: node_data
 
    # Add Collibra backup schedule
     - name: Schedule Collibra Backup
