@@ -55,7 +55,7 @@
       loop_control:
         label: "{{ item.mount }}"
 
-    # Copy files from your src to and installation location
+    # Copy files from your src to an installation location
     - name: Copy DGC installer to /tmp
       copy:
         src: "/usr/local/collibra/packages/dgc-linux-{{ dgc_version }}.sh"
