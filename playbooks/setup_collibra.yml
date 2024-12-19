@@ -94,8 +94,69 @@
       debug:
         var: node_data
 
+    # Gather collibra_servers excluding console
+    - name: Gather collibra_servers excluding console
+      tags: test
+      set_fact:
+        collibra_hosts: >-
+          {{
+            groups['collibra_servers'] | select('match', '^(?!' + inventory_hostname + '$)') | list
+          }}
+
+    # Debug collibra_hosts - to verify the list of hosts
+    - name: Debug collibra_hosts
+      tags: test
+      debug:
+        var: collibra_hosts
+
+    - name: Clear cookies
+      tags: test
+      ansible.builtin.uri:
+        url: "http://{{ ansible_host }}:4402"
+        method: GET
+        cookies: {}
+
+    # Add nodes
+    - name: Add nodes to Environment
+      tags: test
+      ansible.builtin.uri:
+        uri:
+          url: 'http://{{ ansible_host }}:4402/rest/node'
+          method: POST
+          url_username: "{{ collibra_username }}"
+          url_password: "{{ collibra_password }}"
+          force_basic_auth: true
+          headers:
+            Content-Type: "application/json"
+          body_format: json
+          body: |
+            {
+              "hostName": "{{ hostvars[item].ansible_host }}",
+              "port": "4401"
+            }
+          status_code: 200
+      with_items: "{{ collibra_hosts }}"
+
+ # Configure DGC Baseurl - need to add env_configure_dgc_id variable
+ # - name: Configure the DGC baseurl
+ #   uri:
+ #     url: "{{ env_configure_console_url }}/rest/dgc/configuration/{{ env_configure_dgc_id }}/json"
+ #     method: POST
+ #     headers:
+ #       Content-Type: application/json
+ #     user: "{{ env_configure_rest_user }}"
+ #     password: "{{ env_configure_rest_password }}"
+ #     force_basic_auth: yes
+ #     body:
+ #       general:
+ #         baseUrl: "{{ env_configure_dgc_base_url }}"
+ #     body_format: json
+ #     status_code: 200
+ #   when: env_configure_base_url_enabled is undefined or env_configure_base_url_enabled == "true"
+
    # Add Collibra backup schedule
     - name: Schedule Collibra Backup
+      tags: backup
       uri:
         url: "http://{{ ansible_host }}:4402/rest/backupSchedule"
         method: POST
